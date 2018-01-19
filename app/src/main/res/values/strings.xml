@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">音乐播放器</string>
+    <string name="top_title">音乐盒</string>
+    <string name="currentTime">00:00</string>
+    <string name="totalTime">00:00</string>
+    <string name="music_title">歌曲名</string>
+    <string name="music_artist">歌手名</string>
+    <string name="setting">设置</string>
+    <string name="setting_startplay">启动时自动播放音乐</string>
+    <string name="setting_scanmusic">扫描音乐</string>
+    <string name="setting_exit">退出</string>
+    <string name="fragment_music">歌曲</string>
+    <string name="fragment_artist">歌手</string>
+    <string name="fragment_album">专辑</string>
+    <string name="fragment_webview">在线</string>
+</resources>

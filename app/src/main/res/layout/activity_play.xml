@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/background">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="#009944"
+        android:text="@string/top_title"
+        android:textSize="30sp"
+        android:gravity="center|bottom"
+        android:textColor="#FFFFFF"
+        />
+    <TextView
+        android:layout_marginTop="10dp"
+        android:id="@+id/music_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:ems="11"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:text="@string/music_title" />
+
+    <TextView
+        android:id="@+id/music_artist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:ems="11"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:text="@string/music_artist" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        >
+        <cn.hbmcynzx.musicplayer.View.RoundImageView
+            android:id="@+id/music_album"
+            android:layout_width="340dp"
+            android:layout_height="340dp"
+            android:layout_gravity="center"
+            android:src="@mipmap/album"
+            />
+        <cn.hbmcynzx.musicplayer.lrc.LrcView
+            android:id="@+id/lrcShowView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+    </FrameLayout>
+
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/currentTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="@string/currentTime" />
+
+        <SeekBar
+            android:id="@+id/seekbar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/totalTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="@string/totalTime" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <Button
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@mipmap/widget_pre_button_pressed"
+            android:visibility="invisible"/>
+        <Button
+            android:id="@+id/back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@mipmap/widget_pre_button_pressed" />
+
+        <Button
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:id="@+id/play_pause"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@mipmap/play_button" />
+
+        <Button
+            android:id="@+id/next"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@mipmap/widget_next_button_pressed" />
+        <Button
+            android:id="@+id/loop"
+            android:layout_marginLeft="20dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@mipmap/play_list_mode_sequent" />
+    </LinearLayout>
+
+</LinearLayout>
