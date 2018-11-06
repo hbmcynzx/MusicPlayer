@@ -1,14 +1,21 @@
 package cn.hbmcynzx.musicplayer.Database;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
-public class Music{
+import org.litepal.annotation.Column;
+import org.litepal.crud.LitePalSupport;
+
+public class Music extends LitePalSupport {
+	@Column(unique = true)
+	private int id;
 	private String title;//音乐名称
 	private String artist;//歌手
 	private String album;//专辑
 	private String album_art;//专辑图片路径
 	private String path;//歌曲路径
 	private int duration;//歌曲时长
+	@Column(ignore = true)
 	private Bitmap album_art_bitmap;//专辑图片
 	public Music() {
 		
@@ -22,15 +29,14 @@ public class Music{
 		this.path = path;
 		this.duration = duration;
 	}
-	public Music(String title, String artist, String album,String path, int duration,Bitmap album_art_bitmap) {
-		this.title = title;
-		this.artist = artist;
-		this.album = album;
-		this.path = path;
-		this.duration = duration;
-		this.album_art_bitmap=album_art_bitmap;
+
+	public int getId() {
+		return id;
 	}
 
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public String getTitle() {
 		return title;
@@ -92,6 +98,14 @@ public class Music{
 	}
 
 	public Bitmap getAlbum_art_bitmap() {
+		if(album_art_bitmap == null){
+			BitmapFactory.Options opts=new BitmapFactory.Options();
+			opts.inTempStorage=new byte[12*1024];
+			opts.inPreferredConfig = Bitmap.Config.ARGB_8888;
+			if(this.album_art != null && this.album_art.length() > 0){
+				album_art_bitmap=BitmapFactory.decodeFile(album_art,opts);
+			}
+		}
 		return album_art_bitmap;
 	}
 
