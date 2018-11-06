@@ -35,7 +35,7 @@ public class WebViewFragment extends Fragment{
                 return true;
             }
         });
-        webView.loadUrl("http://m.y.qq.com");
+        webView.loadUrl("http://music.hbmcynzx.cn");
         return view;
     }
 }

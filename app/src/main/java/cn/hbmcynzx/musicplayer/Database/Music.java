@@ -3,18 +3,17 @@ package cn.hbmcynzx.musicplayer.Database;
 import android.graphics.Bitmap;
 
 public class Music{
-	private String title;
-	private String artist;
-	private String album;
-	private String album_art;
-	private String path;
-	private int duration;
-	private Bitmap album_art_bitmap;
+	private String title;//音乐名称
+	private String artist;//歌手
+	private String album;//专辑
+	private String album_art;//专辑图片路径
+	private String path;//歌曲路径
+	private int duration;//歌曲时长
+	private Bitmap album_art_bitmap;//专辑图片
 	public Music() {
 		
 	}
-	
-	
+
 	public Music(String title, String artist, String album,String album_art, String path, int duration) {
 		this.title = title;
 		this.artist = artist;

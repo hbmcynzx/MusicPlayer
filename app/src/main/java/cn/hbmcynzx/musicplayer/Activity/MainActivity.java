@@ -26,18 +26,18 @@ import cn.hbmcynzx.musicplayer.R;
 import cn.hbmcynzx.musicplayer.Adapter.ViewPagerAdapter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends BaseActivity implements OnPageChangeListener {
 	private static Context context;
 	private ActivityReceiver activityReceiver;
-	private Intent service;
 	private ImageView music_album;
 	private TextView main_music_title, main_music_artist;
 	private Button main_play_pause, main_next, main_back;
-	private TextView tv_fragment_music,tv_fragment_artist,tv_fragment_album;
+	private TextView tv_fragment_music,tv_fragment_artist,tv_fragment_album,tv_fragment_web;
 	private ViewPager viewPager;
-	private List<Fragment> fragments;
+	//private List<Fragment> fragments;
 	private LinearLayout ll_fragment_tab;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +58,7 @@ public class MainActivity extends BaseActivity implements OnPageChangeListener {
 	}
 
 	private void initService() {
-		service = new Intent();
+		Intent service = new Intent();
 		service.setClass(this, MusicService.class);
 		startService(service);
 	}
@@ -75,6 +75,8 @@ public class MainActivity extends BaseActivity implements OnPageChangeListener {
 		tv_fragment_artist.setOnClickListener(new Listener(1));
 		tv_fragment_album= (TextView) findViewById(R.id.tv_fragment_album);
 		tv_fragment_album.setOnClickListener(new Listener(2));
+		tv_fragment_web = (TextView) findViewById(R.id.tv_fragment_webview);
+		tv_fragment_web.setOnClickListener(new Listener(3));
 		main_play_pause = (Button) findViewById(R.id.play_pause);
 		main_play_pause.setOnClickListener(this);
 		main_next = (Button) findViewById(R.id.next);
@@ -94,20 +96,25 @@ public class MainActivity extends BaseActivity implements OnPageChangeListener {
 	private void initViewPager(){
 		viewPager= (ViewPager) findViewById(R.id.viewpager);
 		viewPager.setOffscreenPageLimit(3);
-		fragments=new ArrayList<Fragment>();
-		MusicFragment musicFragment=new MusicFragment();
+		List<Fragment> fragments=new ArrayList<>();
+		/*MusicFragment musicFragment=new MusicFragment();
 		ArtistFragment artistFragment=new ArtistFragment();
 		AlbumFragment albumFragment=new AlbumFragment();
 		WebViewFragment webViewFragment=new WebViewFragment();
 		fragments.add(musicFragment);
 		fragments.add(artistFragment);
 		fragments.add(albumFragment);
-		fragments.add(webViewFragment);
+		fragments.add(webViewFragment);*/
+		fragments.addAll(Arrays.asList(
+				new MusicFragment(),
+				new ArtistFragment(),
+				new AlbumFragment(),
+				new WebViewFragment()));
 
 		ViewPagerAdapter adapter=new ViewPagerAdapter(getSupportFragmentManager(),fragments);
 		viewPager.setAdapter(adapter);
 		viewPager.setCurrentItem(0);
-		viewPager.setOnPageChangeListener(this);
+		viewPager.addOnPageChangeListener(this);
 	}
 
 	@Override
@@ -131,7 +138,7 @@ public class MainActivity extends BaseActivity implements OnPageChangeListener {
 
 	private class Listener implements View.OnClickListener{
 		private int index;
-		public Listener(int index){
+		private Listener(int index){
 			this.index=index;
 		}
 		@Override
