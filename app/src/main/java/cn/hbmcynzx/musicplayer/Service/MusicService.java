@@ -20,7 +20,9 @@ import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.widget.RemoteViews;
+import android.widget.Toast;
 
 import cn.hbmcynzx.musicplayer.Activity.BaseActivity;
 import cn.hbmcynzx.musicplayer.Activity.MainActivity;

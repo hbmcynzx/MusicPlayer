@@ -27,4 +27,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:26.1.0'
     implementation files('libs/jaudiotagger-2.2.6-SNAPSHOT.jar')
+    implementation 'org.litepal.android:java:3.0.0'
 }

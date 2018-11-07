@@ -5,7 +5,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
-import cn.hbmcynzx.musicplayer.Database.MusicSQLiteOpenHelper;
+import java.util.List;
+
+import cn.hbmcynzx.musicplayer.Database.Music;
+import cn.hbmcynzx.musicplayer.Database.MusicDAO;
 import cn.hbmcynzx.musicplayer.R;
 
 public class WelcomeActivity extends AppCompatActivity{
@@ -24,8 +27,7 @@ public class WelcomeActivity extends AppCompatActivity{
 	}
 	private void initData(){
 		if(!inited){
-			MusicSQLiteOpenHelper openHelper=new MusicSQLiteOpenHelper(this);
-			BaseActivity.musicList=openHelper.getAllMusics();
+			BaseActivity.musicList=MusicDAO.getAllMusics();
 			if(BaseActivity.musicList.size()>0)
 				currentMusic = 0;
 			else

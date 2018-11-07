@@ -1,20 +1,25 @@
 package cn.hbmcynzx.musicplayer.Activity;
 
+import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences.Editor;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
 import cn.hbmcynzx.musicplayer.Fragment.MusicFragment;
 import cn.hbmcynzx.musicplayer.Database.MusicDAO;
 import cn.hbmcynzx.musicplayer.Adapter.MusicListAdapter;
-import cn.hbmcynzx.musicplayer.Database.MusicSQLiteOpenHelper;
 import cn.hbmcynzx.musicplayer.Service.MusicService;
 import cn.hbmcynzx.musicplayer.R;
 
@@ -55,20 +60,41 @@ public class SettingActivity extends BaseActivity implements OnCheckedChangeList
 			MainActivity.exit();
 			break;
 			case R.id.setting_scan:
-				MusicDAO dao=new MusicDAO(this);
-				dao.scanAllMusics();
-				MusicSQLiteOpenHelper openHelper=new MusicSQLiteOpenHelper(this);
-				musicList=openHelper.getAllMusics();
-				MusicListAdapter adapter=new MusicListAdapter(this,musicList,R.layout.music_list);
-				MusicFragment.music_listview.setAdapter(adapter);
-				Intent service=new Intent(this,MusicService.class);
-				startService(service);
+			    if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+			        //查看是否有读写存储器权限
+                    scanMusic();
+                } else {
+                    ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
+                }
+
 			break;
 		}
 		
 	}
 
-	@Override
+	private void scanMusic(){
+        MusicDAO.scanAllMusics();
+        musicList=MusicDAO.getAllMusics();
+        MusicListAdapter adapter=new MusicListAdapter(this,musicList,R.layout.music_list);
+        MusicFragment.music_listview.setAdapter(adapter);
+        Intent service=new Intent(this,MusicService.class);
+        startService(service);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode){
+            case 1:
+                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    scanMusic();
+                } else{
+                    Toast.makeText(this,"未获取存储权限",Toast.LENGTH_SHORT).show();
+                }
+                break;
+        }
+    }
+
+    @Override
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 		Editor edit=config.edit();
 		switch (buttonView.getId()) {
